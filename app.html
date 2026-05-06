@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusDrive</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- Servers Sidebar -->
+    <div class="servers-sidebar" id="serversList">
+      <!-- Servers will be injected here -->
+    </div>
+
+    <!-- Channels Sidebar -->
+    <div class="channels-sidebar">
+      <div class="server-header">
+        <h2 id="currentServerName">CampusDrive</h2>
+      </div>
+      <div class="channels-list" id="channelsList">
+        <!-- Channels will be injected here -->
+      </div>
+
+      <!-- User Panel -->
+      <div class="user-panel">
+        <div class="user-info">
+          <div class="avatar" id="currentUserAvatar">U</div>
+          <div class="user-details">
+            <div class="username" id="currentUserName">User</div>
+            <div class="status" id="currentUserRole">Student</div>
+          </div>
+        </div>
+        <div class="user-actions">
+          <div class="action-btn" id="logoutBtn" title="Log Out">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Chat Area -->
+    <div class="main-chat">
+      <div class="chat-header">
+        <div class="chat-title">
+          <i class="fa-solid fa-hashtag"></i>
+          <h3 id="currentChannelName">welcome</h3>
+        </div>
+        <div class="chat-header-actions" style="position: relative;">
+          <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <div class="notification-wrapper">
+            <i class="fa-solid fa-bell channel-icon" id="notificationBtn" title="Notifications"></i>
+            <span class="notification-badge hidden" id="notificationBadge">0</span>
+
+            <div class="notification-dropdown hidden" id="notificationDropdown">
+              <div class="notification-dropdown-header">
+                <h3>Notifications</h3>
+                <span id="markAllReadBtn">Mark all as read</span>
+              </div>
+              <div class="notification-list" id="notificationList">
+                <!-- Notifications will be injected here -->
+              </div>
+            </div>
+          </div>
+          <i class="fa-solid fa-user-group channel-icon" title="Members"></i>
+        </div>
+      </div>
+
+      <div class="messages-area" id="messagesList">
+        <!-- Messages will be injected here -->
+        <div class="empty-state hidden" id="emptyState">
+          <i class="fa-solid fa-comments"></i>
+          <h3>No messages in this channel yet.</h3>
+        </div>
+      </div>
+
+      <!-- Chat Input (Hidden for students) -->
+      <div class="chat-input-wrapper hidden" id="chatInputWrapper">
+        <div class="chat-input-container">
+          <input type="file" id="imageUploadInput" accept="image/*" class="hidden">
+          <i class="fa-solid fa-circle-plus attach-btn" id="attachBtn" title="Add Attachment"></i>
+          <textarea class="chat-input" id="messageInput" placeholder="Message #channel..." rows="1"></textarea>
+          <i class="fa-solid fa-paper-plane attach-btn" id="sendMessageBtn" title="Send Message"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Message Modal -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Message</h2>
+        <i class="fa-solid fa-xmark close-modal" id="closeEditModal"></i>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="editContent">Message Content (Markdown supported)</label>
+          <textarea id="editContent" rows="5"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelEditBtn">Cancel</button>
+        <button class="btn btn-primary" id="saveEditBtn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

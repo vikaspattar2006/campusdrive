@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusDrive - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="login-wrapper">
+    <div class="login-box">
+      <div class="login-header">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="60" height="60"
+          style="margin-bottom: 10px;">
+          <path d="M 15 65 L 85 65 A 4 4 0 0 1 85 73 L 15 73 A 4 4 0 0 1 15 65 Z" fill="#ffffff" />
+          <rect x="30" y="48" width="40" height="17" fill="#ffffff" />
+          <path d="M 35 65 L 35 56 A 4 4 0 0 1 43 56 L 43 65 Z" fill="#313338" />
+          <path d="M 46 65 L 46 56 A 4 4 0 0 1 54 56 L 54 65 Z" fill="#313338" />
+          <path d="M 57 65 L 57 56 A 4 4 0 0 1 65 56 L 65 65 Z" fill="#313338" />
+          <polygon points="25,48 50,30 75,48" fill="#ffffff" />
+          <rect x="48" y="10" width="4" height="20" fill="#ffffff" />
+          <path d="M 52 10 L 80 10 L 72 17 L 80 24 L 52 24 Z" fill="#ed4245" />
+        </svg>
+        <h1>Welcome back!</h1>
+        <p>We're so excited to see you again!</p>
+      </div>
+
+      <form id="loginForm">
+        <div class="input-group">
+          <label>Select Role</label>
+          <div class="role-selector">
+            <button type="button" class="role-btn active" data-role="student">Student</button>
+            <button type="button" class="role-btn" data-role="admin">Admin</button>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="username">USERNAME</label>
+          <input type="text" id="username" required autocomplete="off" value="student_john">
+        </div>
+
+        <div class="input-group">
+          <label for="password">PASSWORD</label>
+          <input type="password" id="password" required value="password123">
+        </div>
+
+        <button type="submit" class="login-btn">Log In</button>
+
+        <p class="demo-hint">
+          Demo Accounts:<br>
+          Student: student_john / password123<br>
+          Admin: admin_raj / password123
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check if already logged in
+      if (DataStorage.getCurrentUser()) {
+        window.location.href = 'app.html';
+      }
+
+      const roleBtns = document.querySelectorAll('.role-btn');
+      const usernameInput = document.getElementById('username');
+      let currentRole = 'student';
+
+      roleBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          roleBtns.forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          currentRole = e.target.dataset.role;
+
+          if (currentRole === 'student') {
+            usernameInput.value = 'student_john';
+          } else {
+            usernameInput.value = 'admin_raj';
+          }
+        });
+      });
+
+      document.getElementById('loginForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = usernameInput.value;
+        const password = document.getElementById('password').value; // Ignored for demo
+
+        const users = JSON.parse(localStorage.getItem('campusdrive_users') || '[]');
+        const user = users.find(u => u.username === username);
+
+        if (user) {
+          DataStorage.setCurrentUser(user.id);
+          window.location.href = 'app.html';
+        } else {
+          alert('Invalid login credentials. Please use the demo accounts.');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
