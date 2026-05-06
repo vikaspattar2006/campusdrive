@@ -9,7 +9,7 @@ A project designed to manage and track campus placement activities efficiently.
 - Organize campus recruitment data
 
 ## 🛠️ Tech Used
-- C++ (or update if different)
+- HTML,CSS, JavaScript
 
 ## ▶️ How to Run
 1. Compile:
